@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title> Example</title>
+</head>
+<body>
+
+<script>
+  var str="The main theme of education in engineering school is learning to teach yourself"
+  function process(text,width){
+    var len=text.length;
+    var ary=[];
+      for(var i=0;i<len;i+=width){
+        ary.push(text.slice(i,i+width))
+      }
+      for(var j=0;j<ary.length;j++){
+        aryNew=ary[j].split(" ");
+        console.log(aryNew)
+      }
+      return aryNew
+  }
+  console.log(process(str,30))
+
+</script>
+</body>
+</html>

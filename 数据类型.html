@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+var arr1=[null,100], arr2=[100,{}];
+ var arr3=[null,999], arr4=[{},444];
+var  arr5=[1,true,null], arr6=[null,false,100]
+       function arraysSimilar(arr1, arr2){
+            if(arr1.length==arr2.length){
+                var types=[];
+               for(i in arr1){
+                   if(arr1[i]===null){
+                       types.push(null)
+                   }else{
+                  types.push(typeof(arr1[i]))
+                  }
+               }
+               console.log(types)
+               var flag=true;
+               for(var j in arr2){
+                var s=  types.some(function(item,index){
+                    return  item==(arr2[j]==null?null:typeof(arr2[j]));
+               })
+               console.log(s);
+               flag=flag && s;
+               }
+               return flag;
+            }
+             console.log("false")
+            return false;
+
+        }
+
+    console.log(arraysSimilar(arr1, arr2));
+     console.log(arraysSimilar(arr3, arr4));
+        console.log(arraysSimilar(arr5, arr6))
+
+       <!--function type(a){-->
+            <!--return  a === null ? '[object Null]':Object.prototype.toString.apply(a); //hack ie678-->
+        <!--}-->
+        <!--function arraysSimilar(arr1, arr2){-->
+        <!--//既判断了传入参数的类型又判断的长度是否一致。判断是否为数组，isArray-->
+            <!--if(!Array.isArray(arr1) || !Array.isArray(arr2) ||arr1.length!=arr2.length){return false;}-->
+            <!--//定义两个数组，分别存储数组里面的每一项的数据类型-->
+            <!--var arr3=[];-->
+            <!--var arr4=[];-->
+            <!--var x;-->
+            <!--for(var i in arr1){-->
+                <!--arr3.push(type(arr1[i]));-->
+                <!--arr4.push(type(arr2[i]));-->
+            <!--}-->
+            <!--console.log(arr3);-->
+            <!--console.log(arr4);-->
+            <!--console.log(arr3.sort().toString())-->
+             <!--console.log(arr4.sort().toString())-->
+            <!--if(arr3.sort().toString()==arr4.sort().toString()){-->
+                <!--return true;-->
+            <!--}else{-->
+                <!--return false;-->
+            <!--}-->
+        <!--}-->
+
+</script>
+</body>
+</html>

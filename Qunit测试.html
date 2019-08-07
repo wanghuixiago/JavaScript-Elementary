@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>QUnit Example</title>
+  <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.9.2.css">
+</head>
+<body>
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+<script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
+<script>
+  //基本手写测试用例
+  QUnit.test( "hello test", function( assert ) {
+    assert.ok( 1 == "1", "Passed!" );
+  });
+
+//测试add
+  function add(a, b) {
+                return a + b;
+  }
+  QUnit.test("Test Method 1", function (assert) {
+                assert.ok(add(1, 2) == 3, "Test Method 1 Pass");
+              assert.equal( 0, false, "Zero, false; equal succeeds" );
+           });
+
+  //异步测试
+///tDO
+  QUnit.module( "robot", {
+    beforeEach: function() {
+      this.robot = new Robot();
+    }
+  });
+
+  // fireLazer hasn't been properly implemented yet, so this is a todo test
+  QUnit.todo( "fireLazer returns the correct value", function( assert ) {
+    var result = this.robot.fireLazer(); // Currently returns undefined
+    assert.equal( result, "I'm firing my lazer!" );
+  });
+
+
+</script>
+</body>
+</html>

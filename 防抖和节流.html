@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+</head>
+<body>
+<h1>防抖与节流</h1>
+<div  id="container"   style="width:200px;height:200px;background-color: #a1a1a1"></div>
+<script>
+var count =1;
+var container=document.getElementById("container");
+ function getUserAction(){
+  this.innerHTML =count++;
+}
+//container.onmousemove= debounce(getUserAction,1000,true);
+container.onmousemove= throttle(getUserAction,1000);
+防抖
+ function debounce(fn,wait,flag){
+   var timeout;
+   return function(){
+     if(flag){
+      //判断是第一次进来则调用一次fn
+      var pd=!timeout;  //pd为true，则是第一次进来
+       clearTimeout(timeout)
+       timeout = setTimeout(fn.bind(this), wait)
+       console.log(pd);
+      if(pd){
+            fn.apply(this)
+      }
+     }else {
+       clearTimeout(timeout);
+       timeout = setTimeout(fn.bind(this), wait)
+     }
+   }
+ }
+// function debounce(fn,wait){
+//   var timeout;
+//   return function(){
+//     clearTimeout(timeout);
+//     var that=this;
+//     timeout=setTimeout(function(){
+//       fn.apply(that)
+//       },wait)
+//   }
+// }
+
+ // 节流
+ //  function throttle(fn,wait){
+ //    var previous=0;//参照物
+ //    return function(){
+ //      var now=new Date();
+ //      console.log(now);
+ //      var now1=+new Date();
+ //      console.log(now1)
+ //      if(now-previous>wait){
+ //        console.log(this)
+ //        fn.apply(this);
+ //        previous=now
+ //      }
+ //    }
+ //  }
+
+function throttle(fn,wait) {
+  var timeout;
+//  clearTimeout(timeout);
+  return function () {
+    var that = this;
+   if (!timeout) {
+      timeout = setTimeout(function () {
+        fn.apply(that);
+        timeout=null;
+      }, wait)
+    }
+  }
+}
+
+
+</script>
+</body>
+</html>

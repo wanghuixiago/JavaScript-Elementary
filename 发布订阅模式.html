@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  var topics={};
+  var pusub=(function(){
+
+      //订阅
+       function subscribe(topic,fn){
+         if(!topics[topic]){
+           topics[topic]=[];
+         }
+         topics[topic].push(fn);
+       }
+
+       //发布
+       function publish(topic,a,b){
+         console.log(topics)
+         if(!topics[topic]) return
+
+         for (var i=0;i<topics[topic].length;i++){
+               topics[topic][i](a,b)
+         }
+       }
+       return  {
+         subscribe,
+         publish
+       }
+  });
+  pusub().subscribe('test',function(a,b){  //订阅者A订阅了test事件
+
+    console.log(a,b);
+  });
+  pusub().subscribe('test1',function(a,b){  //订阅者A订阅了test事件
+
+    console.log(a,b);
+  });
+  pusub().publish('test','123','HH');   //123  HH（发布者B发布了test事件）
+  pusub().publish('test1','1231','HHQ');
+</script>
+</body>
+</html>

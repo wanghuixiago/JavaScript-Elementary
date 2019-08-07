@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+
+  //测试
+  console.log(9.02.toFixed(2))
+  console.log((8).toFixed(2))
+  console.log(Math.round(9.02))
+  console.log(Math.round(8))
+  console.log(Math.round(9.0243*100)/100)
+  console.log(Math.round(8.1*100)/100)
+  console.log(Math.round(8*100)/100)
+  //一
+  function  formatNumber(number, option) {
+    var num = parseFloat(number);
+    if (isNaN(num)) {
+      return false;
+    }
+    var tempNumber = number.toFixed(2);
+    if (option && option.currency=== true) {
+      return "$ " + tempNumber
+    }
+    return tempNumber
+  }
+  console.log(formatNumber(2, { currency: true }))
+  console.log(formatNumber(2.718, { currency: true }))
+  console.log(formatNumber(2.718))
+
+//二
+
+ function  countCharacter(string, prediction) {
+   if (string &&string.length !== 0) {
+     if (prediction === undefined) {
+       return string.length;
+     } else {
+       var strToary = string.split("");
+       var count = 0;
+       count += strToary.filter(prediction).length;
+       return count
+     }
+
+   }
+    return 0
+  }
+  console.log(countCharacter(''))
+  console.log(countCharacter())
+ console.log(countCharacter(null))
+
+  console.log(countCharacter('hello', c => c === 'l'))
+
+//三
+  function range(start, end) {
+    var rangeAry = [];
+    if (start < end) {
+      for (var i = start; i < end; i++) {
+        rangeAry.push(i)
+      }
+      return rangeAry
+
+    } else {
+        for (var i = start; i > end; i--) {
+          rangeAry.push(i)
+        }
+        return rangeAry
+      }
+      return [];
+
+  }
+  console.log(range(0, 0))
+  console.log( range(0, 5));//[0, 1, 2, 3, 4]
+  console.log(range(-2, -5));//[-2, -3, -4]
+  console.log(range(3, -2));//[3, 2, 1, 0, -1]
+
+  function sum(...numbers){
+    console.log(...numbers)
+    var args=[...numbers];
+    console.log(args)
+    if([]){
+      console.log("[]是ture")
+    }
+    //!==[]
+    if(args.length>0)
+    {
+       var total=args.reduce(function(pre,cur,index,ary){
+         return pre+cur
+       })
+        return total
+    }
+    return 0
+  }
+ console.log(sum());
+  console.log(sum(1, 2, 3));
+  console.log(sum(...[1,2,3]))
+
+//四
+  function arrayToList(array) {
+    if (array) {
+      var aryObj = array.map(function (item, index, ary) {
+        //最后一个的next属性返回Null
+        var Node = {
+          value: ary[index + 1],
+          //下个节点的地址
+          next: null
+        }
+        if (index === ary.length - 1) {
+          var node = {
+            value: item,
+            //下个节点的地址
+            next: null
+          }
+        } else {
+          var node = {
+            value: item,
+            //下个节点的地址
+            next: Node
+          }
+        }
+        return node
+      })
+      return aryObj
+      // return (...aryObj)
+    }
+    else if(array.length===0) {
+      throw new Error('Creating list from undefined array');
+    }
+    else{
+      throw new Error('Creating list from empty array');
+    }
+  }
+ console.log(arrayToList([1]))
+  console.log(arrayToList([1,2]))
+  console.log(arrayToList([1,2,3]))
+  console.log(arrayToList([1,2])[0].value)
+  console.log(arrayToList([1,2])[0].next.value)
+  console.log(arrayToList([1,2])[0].next)
+
+  //五
+  function flattenArray(array) {
+    var res=[];
+     array.map(function(item) {
+       var flag=true
+       if (flag && Array.isArray(item)){
+         res = res.concat(item)
+           flag = false;
+       }else {
+         res.push(item)
+       }
+     })
+    return res
+  }
+ console.log(flattenArray([1, 2, 3]))
+ console.log(flattenArray([[1, 2, 3], [4, 5]]));
+  console.log(flattenArray([[1, 2], [[3, 4], 5]])) //[1, 2, [3, 4], 5]
+  console.log(flattenArray([1, 2, [3, 4, 5], [6, 7, 8]])) //[1, 2, 3, 4, 5, 6, 7, 8]
+
+
+  //六
+
+  class Vector {
+    constructor(x,y){
+      Object.defineProperty(this,'x',{
+        configurable: true,
+        enumerable: true,
+        value:x,
+        writable:false})
+      this.y=y;
+    }
+    // set x(value){
+    //   throw new Error();
+    // }
+    static plus(obj1,obj2){
+      return {x:obj1.x+obj2.x,y:obj1.y+obj2.y}
+    }
+    static minus(obj1,obj2){
+      return {x:obj1.x-obj2.x,y:obj1.y-obj2.y}
+    }
+
+    distance(){
+      return  Math.sqrt(Math.pow(this.x,2)+Math.pow(this.y,2))
+    }
+  }
+
+  const vector = new Vector(2, 3);
+ console.log( vector.x)
+ console.log( vector.y)
+ //  console.log( Object.getOwnPropertyDescriptor(vector,'x'))
+    vector.x = 3;
+  const plusResult = Vector.plus(new Vector(2, 3), new Vector(4, 5));
+  console.log(plusResult.x)
+console.log(plusResult.y)
+
+  const minusResult = Vector.minus(new Vector(2, 3), new Vector(4, 8));
+  console.log((minusResult.x))
+  console.log((minusResult.y))
+
+  const vector1 = new Vector(3, 4);
+  console.log(vector1.distance())
+
+  //七
+  function waitForAll(...promises) {
+    function Promise(resolve, reject) {
+
+    }
+
+    Promise.prototype = {
+      constructor: Promise,
+      resolve: function (data) {
+        this.status = FULFILLED;
+        this.value = data; //执行后续行为
+        this.done()
+      },
+      reject: function (err) {
+        this.status = REJECTED;
+        this.value = err; //执行后续行为
+        this.done()
+      },
+      done: function () { // 让这些this.deffered(子Promise执行)
+        this.deffered.forEach(task => this.handler(task));
+      },
+      then: function (onfulfilled, onrejected) { // 保存该函数
+        var obj = {onfulfilled: onfulfilled, onrejected: onrejected} // 新来一个Promise 对象，让其存储这些 // 并且能根据不同的Promise去then
+        obj.promise = new this.constructor(function () {
+        });
+        console.log(this); // 1
+        console.log(obj.promise); // 2
+        // 保存接下来的子Promise //建立一个与下一个Promise之间的关系
+        if (this.status == PENDING) this.deffered.push(obj) // 保证不报错，未来不能return自己，需要换人
+        return obj.promise;
+      }
+
+    }
+  }
+
+  function createDelayedPromise(delayInMs, success = true) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (success) { resolve(); } else { reject(); }
+      }, delayInMs);
+    });
+  }
+
+  const notAllElementsArePromises = [Promise.resolve(), 2];
+  waitForAll(...notAllElementsArePromises)
+</script>
+</body>
+</html>

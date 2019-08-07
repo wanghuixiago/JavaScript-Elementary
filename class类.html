@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    //类表达式 匿名
+    let Rectangle = class {
+        constructor(height, width) {
+            this.height = height;
+            this.width = width;
+        }
+        clo() {
+            console.log(this.height+this.width)
+        }
+    };
+    //类表达式 具名
+    let Rectangle1 = class Rectangle {
+    constructor(height, width) {
+        this.height = height;
+        this.width = width;
+    }
+        clo1() {
+            console.log(this.height+this.width)
+        }
+    };
+    //使用
+    var r = new Rectangle(2,1);
+    r.clo();
+
+    var r = new Rectangle1(2,1);
+    r.clo1();
+
+
+    //类声明
+    class Animal {
+        constructor(name) {
+            this.name = name;
+        }
+
+        speak() {
+            console.log(this.name + ' makes a noise.');
+        }
+    }
+//extends Animal,这样就可以使用父类的构造函数  extends 关键字在类声明或类表达式中用于创建一个类作为另一个类的一个子类。
+    class Dog extends Animal {
+        speak() {
+            console.log(this.name + ' barks.');
+        }
+    }
+
+    var d = new Dog('Mitzie');
+    d.speak();// 'Mitzie barks.、
+
+    //如果要使用父类的方法，需要使用super关键字;如果子类中存在构造函数，则需要在使用“this”之前首先调用 super()。
+    //super 关键字用于调用对象的父对象上的函数。
+
+    class Cat extends Animal {
+       speak() {
+           super.speak();
+           console.log("我自己的方法")
+       }
+    }
+
+    var c = new Cat('Mitzie');
+    c.speak();// 'Mitzie barks.、
+
+
+//可以扩展传统的基于函数的“类”：   继承传统的构造函数
+
+
+    function Animal1 (name) {
+        this.name = name;
+    }
+    Animal1.prototype.speak = function () {
+        console.log(this.name + ' makes a noise.');
+    }
+
+    class Dog1 extends Animal1 {
+        speak() {
+            super.speak();
+            console.log(this.name + ' barks.');
+        }
+    }
+
+    var d = new Dog1('Mitzie');
+    d.speak();//Mitzie makes a noise.  Mitzie barks.
+//es5   一
+
+
+
+    function ees5(name) {
+
+        this.name = name;
+
+    }
+
+ //   生成实例的时候，使用new关键字。
+
+    　　var cat1 = new ees5("d");
+
+    alert(cat1.name); // 大毛
+//es5  二  这种方法比"构造函数法"简单，但是不能实现私有属性和私有方法，实例对象之间也不能共享数据，对"类"的模拟不够全面。
+
+    var Cat0 = {
+
+        name: "大毛",
+
+        makeSound: function(){ alert("喵喵喵"); }
+
+    };
+
+   // 然后，直接用Object.create()生成实例，不需要用到new。
+
+    　　var cat1 = Object.create(Cat0);
+
+    alert(cat1.name); // 大毛
+
+    cat1.makeSound(); // 喵喵喵
+
+
+
+    var Cat2 = {
+
+        createNew: function(){
+
+            var cat = {};
+
+            cat.name = "大毛";
+
+            cat.makeSound = function(){ alert("喵喵喵"); };
+
+            return cat;
+
+        }
+
+    };
+    var cat2 = Cat2.createNew();
+
+    cat2.makeSound(); // 喵喵喵
+
+    //3.4 数据共享
+
+    //有时候，我们需要所有实例对象，能够读写同一项内部数据。这个时候，只要把这个内部数据，封装在类对象的里面、createNew()方法的外面即可
+
+    var Cats = {
+
+        sound : "喵喵喵",
+
+        createNew: function(){
+
+            var cat = {};
+
+            cat.makeSound = function(){ console.log(Cats.sound); };
+
+            cat.changeSound = function(x){ Cat.sound = x; };
+
+            return cat;
+
+        }
+
+    };
+
+ //   然后，生成两个实例对象：
+
+    　　var catf = Cats.createNew();
+
+    var cats= Cats.createNew();
+
+    catf.makeSound(); // 喵喵喵
+
+    cats.makeSound()
+//这时，如果有一个实例对象，修改了共享的数据，另一个实例对象也会受到影响。  弊端
+</script>
+</body>
+</html>

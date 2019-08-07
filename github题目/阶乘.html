@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function searchRecursion(num){
+         //判断是不是数字，不是数字，则返回
+        if(isNaN(num)){
+            return
+        }
+        if(num === 0){
+            return 1
+        }
+        return (num * searchRecursion(num - 1));
+        // var num2 = num;
+        // while (num-- > 2) {
+        //     num2 *= num;
+        // }
+        // return num2;
+    }
+    console.log(searchRecursion(5)); // 120
+    console.log(searchRecursion(1)); // 1
+    console.log(searchRecursion(3)); // 6
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  // f=function(){return true};//window.f
+  // g=function(){return false};//window.g
+  // console.log(Boolean([]))
+  // ~function(){
+  //     if(g()&&[]==![]){//变量提升.html? Uncaught TypeError: g is not a function
+  //       f=function(){return false}  //f是全局的，修改了全局对象的属性f进行修改
+  //       function g(){return true}
+  //     }
+  // }()
+  // console.log(f(),g())
+ //  console.log(k)  //undefined
+  // if(1===1){
+  //   console.log(k)   //函数
+  //   function k(){
+  //     console.log('ok')
+  //   }
+  // }
+  // console.log(k)  //函数
+  //
+  // if(1===2){
+  //   console.log(k)   //不进来
+  //   function k(){
+  //     console.log('ok')
+  //   }
+  // }
+  // console.log(k)  //undefied
+  function fn(){
+    console.log("2")
+  }
+  var fn=13;
+  var fn=12;
+   function fn(){
+     console.log("1")
+   }
+   console.log(window.fn)//函数
+
+  let a=1;
+
+
+   var k=15;
+   if(true){
+     console.log(k);
+     var k=13;
+   }
+   console.log(k)
+
+console.log(sameName)
+   var  sameName=9;
+   console.log(sameName)
+   function sameName(){
+   console.log("in")
+   }
+   console.log(sameName)
+</script>
+</body>
+</html>

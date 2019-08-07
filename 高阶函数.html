@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    [1, 2 ,3, 4].forEach(console.log);
+  //   [1, 2 ,3, 4].forEach(alert);
+
+
+     var data = [2, 5, 7, 3, 5];
+
+console.log(data.indexOf(5, "x")); // 1 ("x"被忽略)
+console.log(data.indexOf(5, "3")); // 4 (从3号位开始搜索)
+
+console.log(data.indexOf(4)); // -1 (未找到)
+console.log(data.indexOf("5")); // -1 (未找到，因为5 !== "5")
+
+var sum1 = [1, 2, 3, 4].reduce(function (previous, current, index, array) { //给定initialValue(最初的previous值)
+console.log(index)
+  return previous + current;
+},1);
+
+console.log(sum1); // 10
+
+var sum = [1, 2, 3, 4].reduce(function (previous, current, index, array) {
+console.log(index)
+  return previous + current;
+});
+
+console.log(sum); // 10
+
+//实现
+
+if (typeof Array.prototype.forEach != "function") {
+  Array.prototype.forEach = function (fn, context) {
+    for (var k = 0, length = this.length; k < length; k++) {
+      if (typeof fn === "function" && Object.prototype.hasOwnProperty.call(this, k)) fn.call(context, this[k], k, this);
+    }
+  };
+}
+
+if (typeof Array.prototype.map != "function") {
+  Array.prototype.map = function (fn, context) {
+	var arr = [];
+	if (typeof fn === "function") {
+   	  for (var k = 0, length = this.length; k < length; k++) {
+		  arr.push(fn.call(context, this[k], k, this));
+	  }
+    }
+	return arr;
+  };
+}
+
+if (typeof Array.prototype.filter != "function") {
+  Array.prototype.filter = function (fn, context) {
+	var arr = [];
+	if (typeof fn === "function") {
+   	  for (var k = 0, length = this.length; k < length; k++) {
+		  fn.call(context, this[k], k, this) && arr.push(this[k]);
+	  }
+    }
+	return arr;
+  };
+}
+
+if (typeof Array.prototype.some != "function") {
+  Array.prototype.some = function (fn, context) {
+	var passed = false;
+	if (typeof fn === "function") {
+   	  for (var k = 0, length = this.length; k < length; k++) {
+		  if (passed === true) break;
+		  passed = !!fn.call(context, this[k], k, this);
+	  }
+    }
+	return passed;
+  };
+}
+
+if (typeof Array.prototype.every != "function") {
+  Array.prototype.every = function (fn, context) {
+	var passed = true;
+	if (typeof fn === "function") {
+   	  for (var k = 0, length = this.length; k < length; k++) {
+		  if (passed === false) break;
+		  passed = !!fn.call(context, this[k], k, this);
+	  }
+    }
+	return passed;
+  };
+}
+
+if (typeof Array.prototype.indexOf != "function") {
+  Array.prototype.indexOf = function (searchElement, fromIndex) {
+	var index = -1;
+	fromIndex = fromIndex * 1 || 0;
+
+   	for (var k = 0, length = this.length; k < length; k++) {
+	  if (k >= fromIndex && this[k] === searchElement) {
+		  index = k;
+		  break;
+	  }
+    }
+	return index;
+  };
+}
+
+if (typeof Array.prototype.lastIndexOf != "function") {
+  Array.prototype.lastIndexOf = function (searchElement, fromIndex) {
+	var index = -1, length = this.length;
+	fromIndex = fromIndex * 1 || length - 1;
+
+   	for (var k = length - 1; k > -1; k-=1) {
+    	if (k <= fromIndex && this[k] === searchElement) {
+			index = k;
+			break;
+		}
+    }
+	return index;
+  };
+}
+
+if (typeof Array.prototype.reduce != "function") {
+  Array.prototype.reduce = function (callback, initialValue ) {
+	 var previous = initialValue, k = 0, length = this.length;
+	 if (typeof initialValue === "undefined") {
+		previous = this[0];
+		k = 1;
+	 }
+
+    if (typeof callback === "function") {
+      for (k; k < length; k++) {
+		 this.hasOwnProperty(k) && (previous = callback(previous, this[k], k, this));
+	  }
+    }
+	return previous;
+  };
+}
+
+if (typeof Array.prototype.reduceRight != "function") {
+  Array.prototype.reduceRight = function (callback, initialValue ) {
+    var length = this.length, k = length - 1, previous = initialValue;
+    if (typeof initialValue === "undefined") {
+        previous = this[length - 1];
+        k--;
+    }
+    if (typeof callback === "function") {
+       for (k; k > -1; k-=1) {
+          this.hasOwnProperty(k) && (previous = callback(previous, this[k], k, this));
+       }
+    }
+    return previous;
+  };
+}
+
+//函数式编程
+const nextCharForNumStr = (str) => {
+[str].map(s =>  s.trim())//' 64 '
+.map(s => parseInt(s)) // '64'
+  .map(i =>i + 1)  //64
+  .map(i => String.fromCharCode(i))//A
+  }
+
+nextCharForNumStr(' 64 ') // ['A']
+console.log(nextCharForNumStr(' 64 ') )
+
+</script>
+</body>
+</html>

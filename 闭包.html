@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="div1">aaa</div>
+<div id="div2">bbb</div>
+<div id="div3">ccc</div>
+<div id="div4">ddd</div>
+<script>
+    for (var i=1;i<5;i++){
+      console.log(i)
+      !function(i){
+          console.log(i)
+      document.getElementById("div"+i).onclick=function(){
+            alert(i)
+       }
+
+       }(i)
+         console.log(i)
+    }
+    console.log(i)
+</script>
+</body>
+</html>

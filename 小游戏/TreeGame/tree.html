@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            margin:0;
+            padding:0;
+        }
+        .wrap{
+         width:50%;
+         margin:0 auto;
+        }
+        .panel{
+          width:300px;
+          height:300px;
+          background-color: #000;
+          position: relative;
+            margin:0 auto;
+        }
+        .fire{
+            width:20px;
+          height:20px;
+          position: absolute;
+          top:270px;
+          left:140px;
+          background-image: url(./img/fire.png)
+        }
+        .robot{
+            width:20px;
+          height:20px;
+          position: absolute;
+          top:20px;
+          left:80px;
+          background-image: url(./img/plane.png)
+        }
+        #missile{
+            width:20px;
+          height:20px;
+          position: absolute;
+          top:270px;
+          left:140px;
+          background-image: url(./img/canon.png)
+        }
+
+        #explosion{
+            width:20px;
+          height:20px;
+          position: absolute;
+          top:0;
+          left:0;
+          background-image: url(./img/plane1.png);
+          display:none;
+        }
+
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="panel">
+        <div class="robot"></div>
+        <div id="missile"></div>
+        <div class="fire"></div>
+        <div id="explosion"></div>
+    </div>
+    <div id="output">请输入X和Y坐标（0-300），然后点击fire</div>
+    <div id="detail"></div>
+    <div class="option">
+        <input id="inputX" name="x" placeholder="X...">
+        <input id="inputY" name="y" placeholder="Y...">
+        <input type="button" id= 'btn' value="fire">
+    </div>
+</div>
+<script>
+    function BinaryTree(){
+        var Node=function(key){
+            this.key=key;
+            this.left=null;
+            this.right=null;
+        };
+        var root=null;
+        var insertNode=function(node,newNode){
+            if(newNode.key < node.key)
+            { if(node.left===null){
+                node.left=newNode; }
+            else{
+                insertNode(node.left,newNode);
+            }
+            }else{
+                if(node.right===null){
+                    node.right=newNode; }else{
+                    insertNode(node.right,newNode);
+                }
+            }
+        };
+
+        //插入二叉树元素
+        this.insert=function(key){
+            var newnode= new Node(key);
+            if(root===null){
+                root=newnode;
+            }else{
+                insertNode(root,newnode); }
+        };
+
+        //查找最小元素
+        this.min=function(){
+            return minNode(root);
+        };
+
+        var minNode = function (node) {
+            if (node && node.left !== null) {
+                return minNode(node.left);
+            } else {
+                return node.key;
+            }
+        };
+
+        //查找最大元素
+        this.max=function(){
+           // console.log(root)
+            return maxNode(root);
+        };
+
+        var maxNode = function (node) {
+            console.log(node);
+            if (node && node.right !== null) {
+                return maxNode(node.right);
+            } else {
+                return node.key;
+            }
+        };
+
+        //查找特定元素 return +or 不加
+        this.search = function(key){
+            return searchNode(root,key)
+        };
+        var searchNode = function(node,key){
+            if(node === null){
+                return false;
+            }
+            if(node.key < key){
+               return searchNode(node.right,key)
+            }else if(node.key > key){
+               return  searchNode(node.left,key)
+            }else if(node.key===key){
+                return node;
+            }
+
+        };
+        //删除元素
+        this.remove = function(key){
+            return removeNode(root,key)
+        };
+
+        var  removeNode = function(node,key) {
+            if (node.key > key) {
+                node.left = removeNode(node.left, key);
+                return node;
+            } else if (node.key < key) {
+                node.right = removeNode(node.right, key);
+                return node;
+            } else {
+                //删除叶子节点
+                if (node.left === null && node.right === null) {
+                    node = null;
+                    return node;
+                }
+                if(node.left === null){
+                    node = node.right;
+                    return node;
+                }
+                if(node.right === null){
+                    node = node.left;
+                    return node;
+                }
+            }
+        }
+        //前序遍历
+        var inOrderTraverseNode = function(node, callback) {
+            if (node !== null) {
+                inOrderTraverseNode(node.left, callback);
+                callback(node.key);
+                inOrderTraverseNode(node.right, callback);
+            }
+        }
+
+        this.inOrderTraverse = function(callback) {
+            inOrderTraverseNode(root, callback);
+        }
+
+
+    }
+    var nodes=[8,3,10,1,6,14,4,7,13];
+    var binaryTree=new BinaryTree;
+    nodes.forEach(function(key)
+    {
+        binaryTree.insert(key);
+    });
+    console.log(binaryTree);
+    console.log(binaryTree.min());
+    console.log(binaryTree.max());
+    console.log(binaryTree.search(11));
+    console.log(binaryTree.remove(1));
+    console.log(binaryTree.min());
+    console.log(binaryTree.remove(10));
+
+    //生成外星人的坐标二叉树
+    var nodesForAlien = [];
+
+    for (var i = 0; i < 10; i++) {
+
+        nodesForAlien.push(Math.floor(Math.random() * 281));
+
+    }
+    console.log(nodesForAlien);
+    // nodesArray for selected
+
+    // var nodesForSelected = [];
+    //
+    // for (var i = 0; i < 10; i++) {
+    //
+    //     nodesForSelected.push({selected: false});
+    //
+    // }
+    // console.log(nodesForSelected);
+
+    // activate first alienSite
+
+    // var alienNodeSelect = Math.floor(Math.random() * 9);
+    //
+    // nodesForSelected[alienNodeSelect].selected = true;
+
+    nodesForAlien.forEach(function(key)
+    {
+        binaryTree.insert(key);
+    });
+
+
+    //游戏主体
+
+  var alienY = 20;
+  var guessX = 0;
+    var guessY = 0;
+    var shotRemaning = 8;
+    var shotMade = 0;
+    var gameState = '';
+    var gameWon = false;
+
+    var  detail =document.getElementById("detail");
+    detail.innerHTML = gameState;
+
+
+    var cannon =document.getElementsByClassName("fire")[0];
+    var  alien =document.getElementsByClassName("robot")[0];
+    var  missile =document.getElementById("missile");
+    var  explosion =document.getElementById("explosion");
+
+    var inputX = document.getElementById("inputX");
+    var inputY = document.getElementById("inputY");
+    var output = document.getElementById("output");
+      var btn= document.getElementById("btn");
+      btn.onclick = function(){
+          validateInput();
+      }
+      function validateInput(){
+          guessX = parseInt(inputX.value);
+          guessY = parseInt(inputY.value);
+
+          if(isNaN(guessX)|| isNaN(guessX)){
+              output.innerHTML = "请输入坐标"
+          }else if(guessX > 300 ||guessY > 300){
+              output.innerHTML = "坐标不能大于300"
+          }else {
+              playGame();
+          }
+      }
+      function playGame(){
+          shotRemaning = shotRemaning - 1;
+          shotMade = shotMade + 1;
+          gameState = "炮弹" + "数量： " + shotRemaning;
+
+          guessX = parseInt(inputX.value);
+          guessY = parseInt(inputY.value);
+
+          console.log(guessX);
+          console.log(guessY);
+
+          var alienNode = binaryTree.search(guessX);
+          console.log(alienNode);
+          //&& alienNode.selected === true
+          if(alienNode !== null && alienNode  && alienNode.key === alienX){
+              if(guessY >= alienY && guessY <= alienY + 20){
+                  gameWon = true;
+                  endGame();
+              }
+          }else{
+              output.innerHTML = "没有击中" +gameState;
+              if(shotRemaning <1 ){
+                  endGame();
+              }
+          }
+          if(!gameWon){
+            //  nodesForAlien[alienNodeSelect].selected = false;
+              Select = Math.floor(Math.random()*9);
+              console.log(Select);
+              alienX = nodesForAlien[Select];
+              alienY += 30;
+          }
+          console.log(alienX);
+          console.log(alienY);
+           render();
+
+
+      };
+
+      function render() {
+          alien.style.left = alienX +"px";
+          alien.style.top= alienY +"px";
+
+          cannon.style.left = guessX +"px";
+
+          missile.style.left = guessX +"px";
+          missile.style.top = guessY +"px";
+           if(gameWon){
+               explosion.style.display = "block";
+               explosion.style.left = alienX + "px";
+               explosion.style.left = alienY + "px";
+
+               alien.style.display = "none";
+               missile.style.display = "none";
+           }
+      }
+
+       function endGame(){
+          if(gameWon){
+              output.innerHTML = "你拯救了地球",+"你发射了炮弹"+shotMade+"枚。";
+          }else{
+              output.innerHTML = "失败了",+"地球被外星人侵略";
+          }
+
+          btn.click = null;
+          inputX.disable = true;
+          inputY.disabled = true;
+       }
+</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+//一般模式
+var wall = {}; // 声明定义一个命名空间wall
+
+// 定义方法
+(function(window, WALL, undefined){
+    // 给wall命名空间绑定方法say
+    WALL.say = function(){
+        console.log('hello');
+    };
+})(window, wall);
+
+wall.say()
+
+//放大模式
+    var wall = (function(window, WALL, undefined){
+    if(typeof WALL == 'undefined'){
+        WALL = {};
+    }
+
+    // 给wall命名空间绑定方法say
+    WALL.say = function(){
+        console.log('hello');
+    }
+
+    return WALL; // 返回引用
+})(window, wall);
+wall.say()
+
+//宽放大模式
+
+(function(window, WALL, undefined){
+    // 给wall命名空间绑定方法say
+    WALL.say = function(){
+        console.log('hello');
+    }
+})(window, window.wall || (window.wall = {}));
+
+(function(window, WALL, undefined){
+    // 给wall命名空间绑定方法 whoIam
+    WALL.whoIam = function(){
+        console.log('wall');
+    }
+})(window, window.wall || (window.wall = {}));
+
+// 调用
+wall.say();
+wall.whoIam();
+
+
+</script>
+</body>
+</html>

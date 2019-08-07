@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+</head>
+<body>
+<h1>迭代器</h1>
+<script>
+  function Iterator(array){
+    var _arrob=new _arr(array);
+    for(var i=0;i<array.length;i++){
+      _arrob[i]=array[i];
+      _arrob.length++;
+    }
+    return _arrob;
+  }
+  //构造器类
+  function _arr(array){
+//把数组存起来
+    this.array=array;
+    this.length=0;
+    this.index=0;
+    var self=this;
+  }
+  _arr.prototype.actor={
+    equal: function(num) {
+      console.log(this);
+      console.log(self);
+      //重点！！！！！！！
+      return function (num,item, index) {
+        if (item == num) {
+          return item;
+        }
+      }.bind(self,num)
+    },
+    bigger:function(num){
+      return function (item, index) {
+        if (item > num) {
+          return item;
+        }
+      }
+    }
+  }
+  _arr.prototype.cur=function(){
+      return this.array[this.index]
+  }
+  _arr.prototype.pre=function(){
+    if(--this.index<0){
+      this.index=this.length-1;
+      return this.array[this.index];
+    }else{
+      return this.array[this.index]
+    }
+  }
+  _arr.prototype.next=function(){
+    if(++this.index>=this.length){
+      this.index=0;
+      return this.array[this.index]
+    }else{
+      return this.array[this.index]
+    }
+  }
+  _arr.prototype.compareTo=function(num,type){
+    var _num=num;
+    return this.dealeach(this.actor[type](_num))
+  }
+  _arr.prototype.dealeach=function(fn){
+    var _arr=this.array;
+    var _empty=[];
+    for(var i=0;i<this.length;i++){
+      var item=fn.call(this,_arr[i],i);
+      if(typeof item=='undefined'){
+      }else{
+        _empty.push(item)
+      }
+    }
+    return _empty;
+  };
+  _arr.prototype.extendMyfun=function(fname,fn){
+    console.log(this)
+    var self=this;
+    this.actor[fname]=function(num,item,index){
+      console.log(this)
+      console.log(self)
+      return fn.bind(self,num)
+    }
+  }
+//检测输出
+  var myob=Iterator([1,2,3,4,5]);
+//  var result=myob.compareTo(3,'equal');
+//  console.log(result)
+//    var result1=myob.compareTo(2,'bigger');
+//   console.log(result1)
+  myob.extendMyfun("small",function(num,item,index){
+ //   console.log( num ,item ,index)
+    if (item <= num) {
+      return item;
+    }
+  })
+  var result2=myob.compareTo(2,'small');
+  console.log(result2)
+  var myob1=Iterator([1,1,3,4,5]);
+  var result3=myob1.compareTo(2,'small');
+  console.log(result3)
+</script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title> Example</title>
+</head>
+<body>
+
+<script>
+
+ //有以下面额：d1=1,d2=5,d3=10,d4=25
+//要找36美分的零钱，可以用d4 d3 d1  转化为算法
+  function minCoinChange(coins){
+    var count=0;//用来存储硬币个数
+    var result=[];
+    var digui=function(coins)
+    {
+      if (Math.floor(coins / 25)) {  //大于25美分
+        var num=Math.floor(coins / 25);
+        count += num;
+        coins = coins - 25*num;
+        for(var i=0;i<num;i++){
+          result.push(25)
+        }
+        digui(coins)
+      } else if (Math.floor(coins / 10)) {//10-25美分
+        var num=Math.floor(coins / 10);
+        count += num;
+        coins = coins - 10*num;
+        for(var i=0;i<num;i++){
+          result.push(10)
+        }
+        digui(coins)
+      } else if (Math.floor(coins / 5)) { //5-10美分
+        count += Math.floor(coins / 5);
+        result.push(5)
+        coins=coins-5*Math.floor(coins / 5);
+        digui(coins)
+      } else {   //5美分以下
+        count += coins;
+        for(var i=0;i<coins;i++){
+          result.push(1)
+        }
+      }
+    }
+    digui(coins);
+    console.log(result)
+  }
+
+ minCoinChange(36)
+ minCoinChange(20)
+
+
+
+ function MinCoinChange1(coins) {
+   var coins=coins;
+   var cache={};
+   this.makeChange=function (amount){
+     var me=this;
+     if(!amount){
+       return [];
+     }
+     if(cache[amount]){
+       return cache[amount]
+     }
+     var min=[],newMin,newAmount;
+     for(var i=0;i<coins.length;i++){
+       var coin=coins[i];
+       newCount=amount-coin;
+       if(newAmount>=0){
+         newMin=me.makeChange(newAmount)
+       }
+       if(newAmount>=0&&(newMin.length<min.length-1||!min.length)&&(newMin.length||!newAmount)){
+         min=[coin].concat(newMin)
+         console.log("new Min"+min+"for "+amount)
+       }
+     }
+     return (cache[amount]=min)
+   //  console.log(cache[amount])
+   }
+
+ }
+ var minCoinChange1=new MinCoinChange1([1,5,10,25])
+ console.log(minCoinChange1.makeChange(6))
+
+  //贪心算法
+  function MinCoinChange0(coins){
+    var coins=coins;
+    this.makeChange=function(amount){
+      var change=[];
+      var total=0;
+      for(var i=coins.length;i>=0;i--){
+        var coin=coins[i];
+        while(total+coin<=amount){
+          change.push(coin);
+          total+=coin
+        }
+      }
+      return (change)
+    }
+  }
+ var minCoinChange0=new MinCoinChange0([1,5,10,25])
+ console.log(minCoinChange0.makeChange(36))
+ console.log(minCoinChange0.makeChange(20))
+</script>
+</body>
+</html>

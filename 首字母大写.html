@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+  <body>
+<script>
+
+//var str="-webkit-border-image";
+function toUp(str){
+  var ary=str.split("-");
+  console.log(ary)
+  var result=[];
+  for(var i=(str.indexOf("-")===0)?2:1;i<ary.length;i++){
+    var tempAry=ary[i].replace(ary[i][0],ary[i][0].toUpperCase())
+    result.push(tempAry)
+  }
+  var s=str.indexOf("-")===0?1:0
+  return ary[s].concat(result.toString().replace(/,/,""))
+}
+//console.log(toUp(str))
+
+  var str22="as d fff ewe"
+  function countTime(str2){
+   var obj={};
+   str2.replace(/\S/g,function(s) {
+     console.log(s)
+     !obj[s] ? obj[s] = 1 : obj[s]++
+   })
+    return obj
+  }
+console.log(countTime(str22))
+
+  var url="https://www.baidu.com/baidu?tn=monline_3_dg&ie=utf-8&wd=%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9B%BF%E6%8D%A2%E5%AD%97%E7%AC%A6";
+var obj={}
+var reg=/([^?=&]+)=([^?=&]+)/g;
+//console.log(url.match(reg));
+// url.replace(reg,function(){
+//   obj[arguments[0]]=arguments[1];
+// })
+
+var res=reg.exec(url);
+while(res){
+  console.log(res)
+  obj[res[1]]=res[2];
+  res=reg.exec(url);
+}
+console.log(obj)
+console.log(reg.exec(url))
+</script>
+</body>
+</html>

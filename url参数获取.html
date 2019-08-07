@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  var urls="http://www.nowcoder.com?key=1&key=2&key=3&test=4#hehe";
+  function getUrlParam(sUrl,Skey) {
+    if(sUrl.indexOf("?")!==-1){
+      var str=sUrl.split("?")[1]
+      var res=str.split("&");
+
+      var w=[]
+     res.forEach(function(item,index) {
+          var s=item.split("=");
+          console.log(s);
+
+          if(s[0]==Skey){
+            w.push(s[1])
+          }
+
+      })
+      var obj={}
+     // if(Skey==undefined){
+      //  s.forEach(function(item,index){
+      //    obj.key=s[0];
+       //   obj.value=s[1];
+       //   w.push(obj)
+     //   })
+
+     // }
+      console.log(w)
+    }
+  }
+  getUrlParam(urls)
+  
+  
+  //数组去重
+  Array.prototype.uniq = function (ary) {
+   var res=[];
+   var flag=true;
+   ary.forEach(function(item,index){
+
+   
+        if(res.indexOf(item)==-1){
+		 if(item != item){ 
+             if(flag){
+			      res.push(item);
+				  flag=false;
+			 }			 
+         
+        }else{
+		   res.push(item);
+		}
+		
+		}
+    })
+   // console.log(res)
+	}
+	var ary=new Array(false, true, undefined, null, NaN, 0, 1, {}, {}, 'a', 'a', NaN)
+	Array.prototype.uniq(ary);
+	
+	//console.log(new Date(1409894060000));
+	var t=new Date(1409894060000);
+//	console.log(t.getFullYear())
+
+  var str="hello world, 牛客";
+  function ceshi(str){
+    var strlen=0;
+
+  for(var i = 0;i < str.length; i++){
+    if(str.charCodeAt(i) > 255){ //如果是汉字，则字符串长度加2
+      console.log(str[i])
+      strlen += 2}
+    else
+    {strlen++;}
+  }
+
+  console.log(strlen)
+  }
+  function CheckIsChinese(val){
+    var reg = new RegExp("[\\u4E00-\\u9FFF]+","g");
+    if(reg.test(val)){alert("包含汉字！"); }
+  }
+  CheckIsChinese(str)
+  ceshi(str);
+
+  //测试字符串常用方法
+  var str="abcedf";
+  console.log(str.split("")+"  "+str);
+  console.log(str.slice(0,1)+"  "+str);
+  console.log(str.substr(0,2)+"  "+str);
+  console.log(str.substring(1,3)+"  "+str);
+  console.log(str.concat("g")+"  "+str);
+
+  //测试数组常用方法
+  var ary=["a","b","c","d","e","f","g"];
+  console.log(ary.concat(["h"])+"   "+ary);
+  console.log(ary.push("w")+"   "+ary);
+  console.log(ary.pop()+"   "+ary);
+  console.log(ary.slice(0,1)+"   "+ary);
+  console.log(ary.splice(2,0,"q")+"   "+ary);//增加元素
+  console.log(ary.splice(2,1,"t")+"   "+ary);//替换元素
+
+
+</script>
+</body>
+</html>

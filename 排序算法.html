@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title> Example</title>
+</head>
+<body>
+
+<script>
+//排序算法：选择排序
+var ary=[8,9,1,3,5]
+  function selection(ary){
+     var min;
+    for (var i=0;i<ary.length-1;i++){
+        var min=ary[i];
+      for(var j=i;j<ary.length;j++){//找到最小的压入新数组
+        if(ary[min]>ary[j]) {
+          ary[min]=ary[j]
+        }
+      }
+      if( ary[min]!==ary[i]){
+        var temp=ary[i];
+        ary[i]=ary[min];
+        ary[min]=temp;
+      }
+    }
+    console.log(ary)
+  }
+function selection1(ary){
+  var minIndex;
+  for (var i=0;i<ary.length-1;i++){
+    var minIndex=i;
+    for(var j=i;j<ary.length;j++){//找到最小的压入新数组
+      if(ary[minIndex]>ary[j]) {
+        minIndex=j
+      }
+    }
+    if( i!==minIndex){
+      var temp=ary[i];
+      ary[i]=ary[min];
+      ary[min]=temp;
+    }
+  }
+  console.log(ary)
+}
+selection(ary)
+selection1(ary)
+//插入排序
+function insert(ary){
+  var j,temp;
+  for(var i=0;i<ary.length;i++){
+    j=i;
+    temp=ary[i];
+    while(j>0&&ary[j-1]>temp){
+      ary[j]=ary[j-1];
+      j--;
+    }
+    ary[j]=temp;
+  }
+  console.log(ary)
+}
+insert(ary)
+//归并排序
+ function mergeSort(ary){
+  var len=ary.length;
+  if(len===1){return ary}
+  var mid=Math.floor(length/2);
+  if(0<mid) {
+    left = ary.slice(0, mid);
+    right = ary.slice(mid, len);
+  }
+  return merge(mergeSort(left),mergeSort(right));
+}
+function merge(left,right){
+  var result=[],il=0,ir=0;
+  while(il<left.length && ir<right.length){
+    if(left[il]<right[ir]){
+      result.push(left[il++]);
+    }else{
+      result.push(right[ir++]);
+    }
+  }
+  while(il<left.length){
+    result.push(left[il++]);
+  }
+
+  while(ir<lright.length){
+    result.push(right[ir++]);
+  }
+  return result;
+}
+mergeSort(ary)
+  //快速排序
+//快速排序算法
+function quickSort(arr){
+  if(arr.length <= 1){
+    return arr;
+  }
+  var left = [];
+  var right =[];
+  var pivotkey = arr[0];
+  for(var i=1; i<arr.length; i++){
+    if(arr[i] < pivotkey){
+      left.push(arr[i]);
+    }else{
+      right.push(arr[i]);
+    }
+  }
+  return quickSort(left).concat(pivotkey, quickSort(right));
+}
+quickSort(ary)
+
+//二分搜索
+ function binarySearch(ary,item){
+  var low=0,high=ary.length-1,mid,ele;
+  while(low<=high){
+    mid=Math.floor((low+high)/2);
+    ele=ary[mid];
+    if(ele<item){
+      low=mid+1;
+    }else if(ele>item){
+      high=mid-1;
+    }else{
+      console.log(mid);
+    }
+  }
+  return -1;
+}
+binarySearch(ary,3)
+
+
+
+
+</script>
+</body>
+</html>
